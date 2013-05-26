@@ -1,4 +1,4 @@
-#ifndef _CRYPTO__
+#ifndef __CRYPTO__
 #define __CRYPTO__
 
 #include <mcrypt.h>

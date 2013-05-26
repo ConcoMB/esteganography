@@ -8,8 +8,8 @@
 #define LSB4 2
 #define LSBE 3
 
-void hide_msg(char* p_filename, char* msg,char* out_filename, char alg);
-char* recover_msg(char* filename, char alg);
+void hide_msg(const char* p_filename, char* msg,const char* out_filename, char alg);
+char* recover_msg(const char* filename, char alg);
 char get_bit(char* bytes, int n);
 char get_nibble(char* bytes, int n);
 void hide_lsb1(char* msg, FILE*p, FILE* out);

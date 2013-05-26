@@ -1,6 +1,6 @@
 #include "stenography.h"
 
-void hide_msg(char* p_filename, char* msg,char* out_filename, char alg){
+void hide_msg(const char* p_filename, char* msg,const char* out_filename, char alg){
 	FILE* p = fopen(p_filename,"rb");
 	FILE* out = fopen(out_filename,"wb");
 	int i;
@@ -31,7 +31,7 @@ char get_nibble(char* bytes, int n){
 	 return (bytes[n/2] >> (4*((n+1)%2)))&0x0F;
 }
 
-char* recover_msg(char* filename, char alg){
+char* recover_msg(const char* filename, char alg){
 	char* msg;
 	FILE* in = fopen(filename,"rb");
 	fseek(in, 54, SEEK_SET);

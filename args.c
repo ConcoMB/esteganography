@@ -2,16 +2,14 @@
 ./args --embed --in=algo -P algo --out=algo --steg=LSB1 -a aes128 -m ecb --pass=hola
 ./args --embed -i algo -P algo -o algo -s LSB1 -a aes128 -m ecb -p hola */
 #include <argtable2.h>
-
-int ext(const char * in, const char * p, const char * out, const char * steg, const char * a, const char * m, const char * pass);
-int emb(const char * p, const char * out, const char * steg, const char * a, const char * m, const char * pass);
+#include "hide.h"
 
 int main(int argc, char **argv){
 
 /*Parametros obligatorios*/
 struct arg_lit 	* extract = arg_lit0(NULL,"extract",					"Extraer un archivo");
 struct arg_lit 	* embed	= arg_lit0(NULL,"embed",					"Ocultamiento de un archivo");
-struct arg_file * in 	= arg_file1("i", "in", "<input>",				"Archivo que se va a ocultar");
+struct arg_file * in 	= arg_file0("i", "in", "<input>",				"Archivo que se va a ocultar");
 struct arg_file * p 	= arg_file1("P", NULL, "<input>",				"Archivo bmp que sera el portador");
 struct arg_file * out	= arg_file1("o", "out", "<output>",				"Archivo de salida");
 struct arg_rex 	* steg 	= arg_rex1("s", "steg", "LSB1|LSB4|LSBE", NULL, 1,		"Algoritmo de esteganografiado");
@@ -52,11 +50,11 @@ if (nerrors > 0){
 
 
 if(extract->count > 0) {
-	exitcode = ext(in->filename[0], p->filename[0], out->filename[0], steg->sval[0], a->sval[0], m->sval[0], pass->sval[0]);
+	exitcode = ext(p->filename[0], out->filename[0], steg->sval[0], a->sval[0], m->sval[0], pass->sval[0]);
 }
 
 if(embed->count > 0) {
-	exitcode = emb(p->filename[0], out->filename[0], steg->sval[0], a->sval[0], m->sval[0], pass->sval[0]);
+	exitcode = emb(in->filename[0], p->filename[0], out->filename[0], steg->sval[0], a->sval[0], m->sval[0], pass->sval[0]);
 }
 
 
@@ -65,20 +63,3 @@ arg_freetable(argtable, sizeof(argtable)/sizeof(argtable[0]));
 return exitcode;
 
 }
-
-int ext(const char * in, const char * p, const char * out, const char * steg, const char * a, const char * m, const char * pass){
-printf("in file: %s\n", in);
-printf("bitmap file: %s\n", p);
-printf("out file: %s\n", out);
-printf("esteganografiado: %s\n", steg);
-printf("encriptado: %s\n", a);
-printf("cifrado: %s\n", m);
-printf("pass: %s\n", pass);
-
-return 0;
-}
-
-int emb(const char * p, const char * out, const char * steg, const char * a, const char * m, const char * pass){
-return 0;
-}
-

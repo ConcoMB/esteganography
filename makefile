@@ -1,3 +1,3 @@
-stegobmp: main.c stenography.c crypto.c
-	gcc -o stegobmp main.c stenography.c crypto.c -lm -lmcrypt
+stegobmp: args.c hide.c stenography.c crypto.c
+	gcc -o stegobmp args.c hide.c stenography.c crypto.c -lm -lmcrypt -largtable2
 
