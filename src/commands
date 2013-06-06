@@ -1,0 +1,29 @@
+# Ana
+./stegobmp -P ejemplos/sherlock1.bmp -o result -s LSB1 --extract
+
+./stegobmp -P ejemplos/sherlock4.bmp -o result -s LSB4 --extract
+
+./stegobmp -P ejemplos/loimposibleE.bmp -o result -s LSBE --extract
+
+./stegobmp -P ejemplos/sherlock4aes128cbc.bmp -o result -s LSB4 --extract -p secreto
+
+# Pruebas
+./stegobmp -P out.bmp -o result -s LSB1 --extract
+./stegobmp -P imagen.bmp -o out.bmp -i mensaje.txt -s LSB1 --embed
+
+
+./stegobmp -P out.bmp -o result -s LSB4 --extract
+./stegobmp -P imagen.bmp -o out.bmp -i mensaje.txt -s LSB4 --embed
+
+./stegobmp -P out.bmp -o result -s LSBE --extract
+./stegobmp -P lsbe.bmp -o out.bmp -i mensaje.txt -s LSBE --embed
+
+# Pruebas cifrado
+./stegobmp -P out.bmp -o result -s LSB1 --extract -p hola
+./stegobmp -P imagen.bmp -o out.bmp -i mensaje.txt -s LSB1 --embed -p hola
+
+
+# Grupo 6
+./stegobmp -P grupo6/hugo1.bmp -o result -s LSB4 --extract
+
+./stegobmp -P grupo6/miserables1.bmp -o result -s LSB1 --extract

@@ -1,2 +1,1 @@
 MensajeOculto
-.txt
