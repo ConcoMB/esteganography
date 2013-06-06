@@ -33,6 +33,10 @@ void hide_msg(const char* p_filename, hidden_file_t* file,const char* out_filena
 	char* msg = (char*)&i_size;
 	for(i=0; i<4; i++){
 		hide_byte(msg[i], p, out, alg);
+		if(feof(p)){
+			printf("Not enough space!");
+			exit(-1);
+		}
 	}
 	// Hide data
 	msg = file->data;
@@ -127,7 +131,7 @@ void hide_lsb4(char byte, FILE*p, FILE* out){
 	char hidden, c;
 	for(i=0;i<2;i++){
 		c=fgetc(p);
-		hidden = (c & ~1) | get_nibble(&byte, i);
+		hidden = (c & 0xF0) | get_nibble(&byte, i);
 		fputc(hidden, out);
 	}
 }
@@ -147,16 +151,15 @@ char recover_lsb4(FILE* in){
 void hide_lsbe(char byte, FILE*p, FILE* out){
 	int i;
 	char hidden, c, white;
-	for(i=0;i<2;i++){
+	for(i=0;i<8;i++){
 		do{
 			c=fgetc(p);
 			white = is_white(c);
 			if(!white){
-				printf("%x\n",c);
 				fputc(c,out);
 			}
 		}while(!white);
-		hidden = (c & 0xF0) | get_nibble(&byte, i);
+		hidden = (c & ~1) | get_bit(&byte, i);
 		fputc(hidden, out);
 	}
 }

@@ -1,9 +1,9 @@
 #ifndef __ESTENO__
 #define __ESTENO__
 
-#define LSB1 1
+#define LSB1 8
 #define LSB4 2
-#define LSBE 3
+#define LSBE 1
 
 typedef struct hidden_file {
 	int size;

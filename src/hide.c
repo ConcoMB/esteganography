@@ -44,13 +44,25 @@ int ext(const char * p, const char * out, const char * steg, const char * a, con
 }
 
 int emb(const char* in, const char * p, const char * out, const char * steg, const char * a, const char * m, const char * pass){
-	// TODO check p size
+	char steg_n = steg_from_string(steg);
+	int in_size=file_size(in), p_size;
+	// Check space
+	if(steg_n==LSBE){
+		p_size=file_whites(p)/8;
+	}else{
+		p_size=(file_size(p)-54)/steg_n;
+	}
+	if(in_size > p_size){
+		printf("Not enough space -> IN size:%d, P size:%d\n",in_size,p_size);
+		exit(-1);
+	}
+	// Hide the message
 	hidden_file_t* msg = message_to_hide(in);
 	if(*pass){
 		msg = encrypt(msg, a, m, pass);
 		printf("Encrypted:%d\n", msg->size);
 	}
-	hide_msg(p, msg, out, steg_from_string(steg), !*pass);
+	hide_msg(p, msg, out, steg_n, !*pass);
 	return 0;
 }
 
@@ -96,4 +108,17 @@ int file_size(const char* filename){
 	int size = ftell(f);
 	fclose(f);
 	return size;
+}
+
+int file_whites(const char* filename){
+	FILE* f = fopen(filename,"rb");
+	fseek(f, 54, SEEK_SET);
+	char c;
+	int whites = 0;
+	while(((c=fgetc(f))||1)&&!feof(f)){
+		if(is_white(c)){
+			whites++;
+		}
+	}
+	return whites;
 }

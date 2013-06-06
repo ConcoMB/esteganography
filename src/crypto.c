@@ -21,7 +21,6 @@ hidden_file_t* encrypt(hidden_file_t* msg, const char* alg, const char* mode, co
   unsigned char *key= malloc(sizeof(unsigned char) * EVP_CIPHER_key_length(cipher));
   unsigned char *iv= malloc(sizeof(unsigned char) * EVP_CIPHER_iv_length(cipher));
   EVP_BytesToKey(cipher, EVP_md5(), NULL, pass, strlen(pass),1, key, iv);
-  printf("IV:%x key: %x\n", *iv, *key);
 
   hidden_file_t* out = malloc(sizeof(hidden_file_t));
   out->data = calloc(msg->size+16+1,sizeof(char));
@@ -51,7 +50,6 @@ hidden_file_t* decrypt(hidden_file_t* msg, const char* alg, const char* mode, co
   unsigned char *key= malloc(sizeof(unsigned char) * EVP_CIPHER_key_length(cipher));
   unsigned char *iv= malloc(sizeof(unsigned char) * EVP_CIPHER_iv_length(cipher));
   EVP_BytesToKey(cipher, EVP_md5(), NULL, pass, strlen(pass),1, key, iv);
-  printf("IV:%x key: %x\n", *iv, *key);
 
   hidden_file_t* out = malloc(sizeof(hidden_file_t));
   out->data = calloc(msg->size+16+1,sizeof(char));

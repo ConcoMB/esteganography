@@ -1,0 +1,6 @@
+cada mina es un 1.
+cada fila forma una letra.
+Los ascii de las letras empiezan todos en 01.
+Asi encontraras el algoritmo  y el modo
+La password esta en otro archivo
+Con algoritmo, modo y password hay un .wmv encriptado y oculto.

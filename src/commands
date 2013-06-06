@@ -27,3 +27,6 @@
 ./stegobmp -P grupo6/hugo1.bmp -o result -s LSB4 --extract
 
 ./stegobmp -P grupo6/miserables1.bmp -o result -s LSB1 --extract
+
+./stegobmp -P grupo6/lincoln.bmp -o result -s LSBE --extract
+
